@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Titles</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Anime Fans Unite</h1>
+  <ul>
+    <li><a href="index.html">Users</a></li>
+    <li><a href="Favorite_anime.html">Users' Favorited Animes</a></li>
+    <li><a href="Animes.html">Animes</a></li>
+    <li><a href="Titles.html">Titles</a></li>
+    <li><a href="Artists.html">Artists</a></li>
+    <li><a href="Studios.html">Studios</a></li>
+  </ul>
+  <h2>Titles</h2>
+  <h3>The Titles page regulates the Titles table.</h3>
+  <p>
+    This page displays a table of all available anime titles and their associated artists.<br>
+    An anime title can be added by submitting the anime title and the name of the artist.
+  </p>
+  <fieldset>
+    <legend>Add Titles</legend>
+    <form>
+      <label for="title">Anime Title:</label>
+      <input type="text" id="title">
+      <label for="artistName">Artist Name:</label>
+      <input list="artistOptions" id="artistName">
+        <datalist id="artistOptions">
+          <option value="Rumiko Takahashi"></option>
+          <option value="Hiroyuki Takei"></option>
+        </datalist>
+      <input type="submit">
+    </form>
+  </fieldset><br>
+    <table>
+      <caption><b>Anime Titles</b></caption>
+      <thead>
+        <th>Titles</th>
+        <th>Artists</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Shaman King</td>
+          <td>Hiroyuki Takei</td>
+          <td>
+            <input type="button" name="Delete" value="Delete">
+          </td>
+        </tr>
+        <tr>
+          <td>Inuyasha</td>
+          <td>Rumiko Takahashi</td>
+          <td>
+            <input type="button" name="Delete" value="Delete">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </fieldset>
+</body>
+</html>

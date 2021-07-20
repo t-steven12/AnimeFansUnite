@@ -1,0 +1,24 @@
+ul {
+    background-color: aqua;
+}
+
+li {
+    display: inline-block;
+    padding: 25px 25px;
+}
+
+li:hover {
+    background-color: antiquewhite;
+}
+
+a {
+    padding: 25px 25px;
+}
+
+a:hover {
+    cursor: pointer:
+}
+
+td {
+    text-align: center;
+}

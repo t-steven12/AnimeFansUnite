@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Favorite_anime</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Anime Fans Unite</h1>
+    <ul>
+        <li><a href="index.html">Users</a></li>
+        <li><a href="Favorite_anime.html">Users' Favorited Animes</a></li>
+        <li><a href="Animes.html">Animes</a></li>
+        <li><a href="Titles.html">Titles</a></li>
+        <li><a href="Artists.html">Artists</a></li>
+        <li><a href="Studios.html">Studios</a></li>
+    </ul>
+    <h2>Users' Favorited Animes</h2>
+    <h3>The Users' Favorited Animes page regulates the Fav_animes table.</h3>
+    <p>
+        This page displays a table of all animes favorited by a user. <br>
+        A user can view a user's favorite animes by searching their user ID. <br>
+        "User's Favorite Animes" will be populated by the search results. <br>
+        A user can also favorite an anime which inserts the entered user ID and <br>
+        anime ID into the Fav_animes table.
+    </p>
+    <fieldset>
+        <legend>Favorite an Anime</legend>
+        <form>
+            <label for="userId">User ID:</label>
+            <input type="number" id="userId"><br>
+            <label for="fname">User First Name:</label>
+            <input type="text" id="fname"><br>
+            <label for="lname">User Last Name:</label>
+            <input type="text" id="lname"><br>
+            <label for="animeId">Anime ID:</label>
+            <input type="number" id="animeId">
+            <input type="submit">
+        </form>
+    </fieldset>
+    <fieldset>
+        <legend>View a User's Favorite Animes</legend>
+        <form>
+            <label for="userId2">User ID:</label>
+            <input type="number" id="userId2">
+            <input type="submit">
+        </form>
+    </fieldset>
+    <table>
+        <caption><b>User's Favorite Animes</b></caption>
+        <thead>
+            <th>User ID</th>
+            <th>Anime ID</th>
+            <th>Anime Title</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2</td>
+                <td>1</td>
+                <td>Shaman King</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>2</td>
+                <td>Inuyasha</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
