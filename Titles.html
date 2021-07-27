@@ -13,13 +13,15 @@
     <li><a href="Animes.html">Animes</a></li>
     <li><a href="Titles.html">Titles</a></li>
     <li><a href="Artists.html">Artists</a></li>
-    <li><a href="Studios.html">Studios</a></li>
   </ul>
   <h2>Titles</h2>
   <h3>The Titles page regulates the Titles table.</h3>
   <p>
     This page displays a table of all available anime titles and their associated artists.<br>
-    An anime title can be added by submitting the anime title and the name of the artist.
+    An anime title can be added by submitting the anime title and the name of the artist.<br>
+    The artists in the Artists column can be updated by pressing the UPDATE button next to<br>
+    the desired row to be updated. The relationship between Titles and Artists is NULLable.<br>
+    The associated Artist of a Title can be NULL upon insertion and update.
   </p>
   <fieldset>
     <legend>Add Titles</legend>
@@ -46,14 +48,14 @@
           <td>Shaman King</td>
           <td>Hiroyuki Takei</td>
           <td>
-            <input type="button" name="Delete" value="Delete">
+            <input type="button" name="Update" value="Update">
           </td>
         </tr>
         <tr>
           <td>Inuyasha</td>
           <td>Rumiko Takahashi</td>
           <td>
-            <input type="button" name="Delete" value="Delete">
+            <input type="button" name="Update" value="Update">
           </td>
         </tr>
       </tbody>

@@ -13,21 +13,17 @@
         <li><a href="Animes.html">Animes</a></li>
         <li><a href="Titles.html">Titles</a></li>
         <li><a href="Artists.html">Artists</a></li>
-        <li><a href="Studios.html">Studios</a></li>
     </ul>
     <h2>Animes</h2>
+    <figure>
+        <img src="https://pbs.twimg.com/media/EvmBT7jVEAAGpUo?format=jpg&name=large" width="200">
+        <figcaption>Image sourced from<br><a href="https://twitter.com/SHAMANKING_PR/status/1367278619643441154">Shaman King Official Twitter</a></figcaption>
+    </figure>
     <h3>The Animes page regulates the Animes table and the First Episodes table.</h3>
     <p>
         This page shows all anime currently in the database along with their <br>
         associated information (including first episodes) in a table. <br>
-        Animes can added by submitted the corresponding anime information. <br>
-        Updating and/or deleting an anime is also possible.
-        Adding, updating, and/or <br>
-        deleting an anime also
-        adds, updates, and/or deletes first
-        episode information. <br>
-        Users can search for a specific anime by submitting an anime title<br>
-        and the Animes table will repopulate with the results.
+        Animes can added by submitted the anime title. <br>
     </p>
 
     <fieldset>
@@ -39,25 +35,7 @@
                     <option value="Shaman King"></option>
                     <option value="Inuyasha"></option>
                 </datalist><br>
-            <label for="studiosList">Studio Name:</label>
-            <input list="studioOptions" id="studiosList">
-                <datalist id="studioOptions">
-                    <option value="Xebec"></option>
-                    <option value="Pierrot"></option>
-                </datalist><br>
-            <label for="firstEpisode">First episode title:</label>
-            <input type="text" id="firstEpisode"><br>
-            <label for="firstEpAirDate">First episode air date:</label>
-            <input type="date" id="firstEpAirDate">
             <input type="submit" id="addAnime">
-        </form>
-    </fieldset>
-    <fieldset>
-        <legend>Search for Anime By Title</legend>
-        <form>
-            <label for="searchTitle">Title:</label>
-            <input type="text" id="searchTitle">
-            <input type="submit">
         </form>
     </fieldset>
         <table>
@@ -66,34 +44,17 @@
                 <th>Anime ID</th>
                 <th>Title</th>
                 <th>Artist</th>
-                <th>Studio</th>
-                <th>First Episode</th>
-                <th>First Ep. Air Date</th>
             </thead>
             <tbody>
                 <tr>
                     <td>1</td>
                     <td>Shaman King</td>
                     <td>Hiroyuki Takei</td>
-                    <td>Xebec</td>
-                    <td>A Boy Who Dances With Ghosts / Yoh, Morty!</td>
-                    <td>07/04/2001</td>
                     <td>
-                        <input type="button" name="Update" value="Update">
-                        <input type="button" name="Delete" value="Delete">
-                    </td>
-                </tr>
                 <tr>
                     <td>2</td>
                     <td>Inuyasha</td>
                     <td>Rumiko Takahashi</td>
-                    <td>Sunrise</td>
-                    <td>The Girl Who Overcame Time... and the Boy Who Was Just Overcome</td>
-                    <td>10/16/2000</td>
-                    <td>
-                        <input type="button" name="Update" value="Update">
-                        <input type="button" name="Delete" value="Delete">
-                    </td>
                 </tr>
             </tbody>
         </table>
