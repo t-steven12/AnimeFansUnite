@@ -48,8 +48,8 @@ function binder() {
         request.setRequestHeader('Content-Type', 'application/json');
         request.addEventListener('load', function() {
             if(request.status >= 200 && request.status < 400) {
-                console.log(response[0]);
                 var response = JSON.parse(request.responseText);
+                console.log(response[0]);
                 var row = document.createElement("tr");
                 document.getElementById("usersBody").appendChild(row);
                 var fName = document.createElement("td");

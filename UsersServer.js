@@ -33,6 +33,7 @@ app.get('/Users',function(req,res,next){
             next(err);
             return;
         }
+        console.log(rows);
         backToRequest = JSON.stringify(rows);
         res.send(backToRequest);
     });
@@ -47,10 +48,10 @@ app.post('/Users',function(req,res,next){
            return;
        }
        console.log(result.insertId);
-       backToRequest = {user_id: result.insertId, f_name: req.body.f_name, l_name: req.body.l_name};
-       console.log(backToRequest);
-       backToRequest = JSON.stringify(backToRequest);
-       res.send(backToRequest);
+       var object = {user_id: result.insertId, f_name: req.body.f_name, l_name: req.body.l_name};
+       console.log(object);
+       object = JSON.stringify(object);
+       res.send(object);
    });
 });
 
