@@ -52,6 +52,8 @@ app.post('/Users',function(req,res,next){
    });
 });
 
-
+app.listen(app.get('port'), function(){
+    console.log('Server online @ http://flip3.engr.oregonstate.edu:' + app.get('port') + '; press Ctrl-C to terminate.');
+});
 
 
