@@ -48,7 +48,7 @@ app.post('/Users',function(req,res,next){
            return;
        }
        var idFromInsert = result.insertId;
-       pool.query('SELECT * FROM Users WHERE id=?', [idFromInsert], function(err, row){
+       pool.query('SELECT * FROM Users WHERE user_id=?', [idFromInsert], function(err, row){
            if(err){
                next(err);
                return;
