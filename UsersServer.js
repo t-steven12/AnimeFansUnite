@@ -47,11 +47,16 @@ app.post('/Users',function(req,res,next){
            next(err);
            return;
        }
-       console.log(result.insertId);
-       var object = {user_id: result.insertId, f_name: req.body.f_name, l_name: req.body.l_name};
-       console.log(object);
-       object = JSON.stringify(object);
-       res.send(object);
+       var idFromInsert = result.insertId;
+       pool.query('SELECT * FROM Users WHERE id=?', [idFromInsert], function(err, row){
+           if(err){
+               next(err);
+               return;
+           }
+           backToRequest = JSON.stringify(row);
+           console.log(backToRequest);
+           res.send(backToRequest);
+       })
    });
 });
 
