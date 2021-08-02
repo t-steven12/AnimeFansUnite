@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Favorite_anime</title>
     <link rel="stylesheet" href="style.css">
+    <script src="fav_animesAJAX.js"></script>
 </head>
 <body>
     <h1>Anime Fans Unite</h1>
@@ -25,40 +26,30 @@
     </p>
     <fieldset>
         <legend>Favorite an Anime</legend>
-        <form>
-            <label for="userId">User ID:</label>
-            <input type="number" id="userId"><br>
+        <form action="fav_animesAJAX.js" method="post">
+            <label for="newUserId">User ID:</label>
+            <input type="number" id="newUserId"><br>
             <label for="animeId">Anime ID:</label>
             <input type="number" id="animeId">
-            <input type="submit">
+            <input type="submit" id="favoriteAnAnime">
         </form>
     </fieldset>
     <fieldset>
         <legend>View a User's Favorite Animes</legend>
-        <form>
-            <label for="userId2">User ID:</label>
-            <input type="number" id="userId2">
-            <input type="submit">
+        <form action="fav_animesAJAX.js" method="get">
+            <label for="userId">User ID:</label>
+            <input type="number" id="userId">
+            <input type="submit" id="viewFavs">
         </form>
     </fieldset>
-    <table>
+    <table id="userFavTable">
         <caption><b>User's Favorite Animes</b></caption>
         <thead>
             <th>User ID</th>
             <th>Anime ID</th>
             <th>Anime Title</th>
         </thead>
-        <tbody>
-            <tr>
-                <td>2</td>
-                <td>1</td>
-                <td>Shaman King</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>2</td>
-                <td>Inuyasha</td>
-            </tr>
+        <tbody id="userFavAnimes">
         </tbody>
     </table>
 </body>
