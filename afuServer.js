@@ -66,7 +66,8 @@ app.get('/titles',function(req,res,next){
 app.post('/titles',function(req,res,next){
     console.log("Server: inserting new anime title...");
     var backToRequest;
-    pool.query("INSERT INTO Titles (title_name, artist) VALUES (?, (SELECT artist_id FROM Artists WHERE CONCAT(Artists.f_name, ' ', Artists.l_name)=?))", [req.body.title, req.body.artist], function(err,result) {
+    console.log(req.body.title_name);
+    pool.query("INSERT INTO Titles (title_name, artist) VALUES (?, (SELECT artist_id FROM Artists WHERE CONCAT(Artists.f_name, ' ', Artists.l_name)=?))", [req.body.title_name, req.body.artist], function(err,result) {
         if (err) {
             next(err);
             return;
