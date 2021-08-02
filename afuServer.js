@@ -43,7 +43,7 @@ app.get('/artists',function(req,res,next){
 app.get('/titles',function(req,res,next){
     console.log("Server: getting Titles table...");
     var backToRequest;
-    mysql.pool.query("SELECT Titles.title_name AS Titles, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artists FROM Titles JOIN Artists ON (Titles.artist IS NULL OR Titles.artist = Artists.artist_id) ORDER BY Titles ASC", function(err,rows){
+    mysql.pool.query("SELECT Titles.title_name AS Titles, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artists FROM Titles LEFT JOIN Artists ON Titles.artist = Artists.artist_id ORDER BY Titles ASC", function(err,rows){
         if(err){
             next(err);
             return;
