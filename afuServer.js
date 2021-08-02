@@ -72,9 +72,7 @@ app.post('/titles',function(req,res,next){
             next(err);
             return;
         }
-        var idFromInsert = result.insertId;
-        console.log(idFromInsert);
-        pool.query("SELECT Titles.title_name AS Titles, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artists FROM Titles JOIN Artists ON Titles.artist = Artists.artist_id WHERE Titles.title_name=?", [req.body.title], function (err, row) {
+        pool.query("SELECT Titles.title_name AS Titles, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artists FROM Titles JOIN Artists ON Titles.artist = Artists.artist_id WHERE Titles.title_name=?", [req.body.title_name], function (err, row) {
             if (err) {
                 next(err);
                 return;
