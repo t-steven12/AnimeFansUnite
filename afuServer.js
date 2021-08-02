@@ -122,20 +122,37 @@ app.post('/titles',function(req,res,next){
     console.log("Server: inserting new title...");
     var backToRequest;
     console.log(req.body.title_name);
+    console.log(req.body.artist);
     mysql.pool.query("INSERT INTO Titles (title_name, artist) VALUES (?, (SELECT artist_id FROM Artists WHERE CONCAT(Artists.f_name, ' ', Artists.l_name)=?))", [req.body.title_name, req.body.artist], function(err,result) {
         if (err) {
             next(err);
             return;
         }
-        mysql.pool.query("SELECT Titles.title_name AS Titles, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artists FROM Titles JOIN Artists ON Titles.artist = Artists.artist_id WHERE Titles.title_name=?", [req.body.title_name], function (err, row) {
-            if (err) {
-                next(err);
-                return;
-            }
-            backToRequest = JSON.stringify(row);
-            console.log(backToRequest);
-            res.send(backToRequest);
-        });
+        if(req.body.artist === "")
+        {
+            mysql.pool.query("SELECT Titles.title_name AS Titles FROM Titles WHERE Titles.title_name=?", [req.body.title_name], function (err, row) {
+                if (err) {
+                    next(err);
+                    return;
+                }
+                row.Artists = "NULL";
+                backToRequest = JSON.stringify(row);
+                console.log(backToRequest);
+                res.send(backToRequest);
+            });
+        }
+        else
+        {
+            mysql.pool.query("SELECT Titles.title_name AS Titles, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artists FROM Titles JOIN Artists ON Titles.artist = Artists.artist_id WHERE Titles.title_name=?", [req.body.title_name], function (err, row) {
+                if (err) {
+                    next(err);
+                    return;
+                }
+                backToRequest = JSON.stringify(row);
+                console.log(backToRequest);
+                res.send(backToRequest);
+            });
+        }
     });
 });
 
