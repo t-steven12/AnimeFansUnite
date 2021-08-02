@@ -88,7 +88,7 @@ app.post('/fav_animes',function(req,res,next){
     });
 });
 
-app.post('/fav_animes',function(req,res,next){
+app.post('/favoritingAnime',function(req,res,next){
     console.log("Server: favoriting an anime for user...");
     var backToRequest;
     pool.query("INSERT INTO Fav_animes (user_id, anime_id) VALUES (?,?)", [req.body.uId, req.body.aId], function(err,result){

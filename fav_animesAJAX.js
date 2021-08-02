@@ -47,7 +47,7 @@ function binder(){
         var carePackage = {"uId": document.getElementById("userIdFav").value, "aId": document.getElementById("animeIdToFav").value}
         console.log(carePackage);
         carePackage = JSON.stringify(carePackage);
-        request.open("POST","http://flip3.engr.oregonstate.edu:41988/fav_animes", true);
+        request.open("POST","http://flip3.engr.oregonstate.edu:41988/favoritingAnime", true);
         request.setRequestHeader('Content-Type', 'application/json');
         request.addEventListener('load', function() {
             if(request.status >= 200 && request.status < 400) {
