@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Artists</title>
     <link rel="stylesheet" href="style.css">
+    <script src="artistsAJAX.js"></script>
 </head>
 <body>
     <h1>Anime Fans Unite</h1>
@@ -23,22 +24,22 @@
     </p>
     <fieldset>
       <legend>Add Artists</legend>
-      <form>
+      <form action="artistsAJAX.js" method="post">
         <label for="fname">First name:</label>
         <input type="text" id="fname">
         <label for="lname">Last name:</label>
         <input type="text" id="lname">
-        <input type="submit">
+        <input type="submit" id="addArtists">
       </form>
     </fieldset><br>
-      <table>
+      <table id="artistsTable">
         <caption><b>Artists</b></caption>
         <thead>
           <th>Artist ID</th>
           <th>First Name</th>
           <th>Last Name</th>
         </thead>
-        <tbody>
+        <tbody id="artistsBody">
           <tr>
             <td>1</td>
             <td>Hiroyuki</td>

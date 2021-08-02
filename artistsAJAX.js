@@ -1,25 +1,24 @@
 document.addEventListener('DOMContentLoaded', binder);
 
-function binder() {
+function binder(){
 
-    getOverHere();
+    getArtists();
 
-    //Request to retrieve table
-    function getOverHere(){
-        console.log("AJAX to retrieve table");
+    function getArtists(){
+        console.log("AJAX to retrieve Artists table...");
         var request = new XMLHttpRequest();
-        request.open("GET", "http://flip3.engr.oregonstate.edu:41988/users", true);
+        request.open("GET", "http://flip3.engr.oregonstate.edu:41988/artists", true);
         request.addEventListener('load', function() {
             if(request.status>= 200 && request.status < 400) {
                 var response = JSON.parse(request.responseText);
                 console.log(response);
-                var usersTabBody = document.getElementById("usersBody");
+                var artistsTabBody = document.getElementById("artistsBody");
                 for(var i = 0; i < response.length; i++)
                 {
                     var row = document.createElement("tr");
-                    usersTabBody.appendChild(row);
+                    artistsTabBody.appendChild(row);
                     var id = document.createElement("td");
-                    id.textContent = response[i]["user_id"];
+                    id.textContent = response[i]["artist_id"];
                     row.appendChild(id);
                     var fName = document.createElement("td");
                     fName.textContent = response[i]["f_name"];
@@ -38,23 +37,23 @@ function binder() {
     }
 
     //AJAX request to insert a user
-    document.getElementById('addUser').addEventListener('click', function(e) {
-        console.log("Adding user...");
+    document.getElementById('addArtists').addEventListener('click', function(e) {
+        console.log("Adding artist...");
         var request = new XMLHttpRequest();
-        var carePackage = {"f_name": document.getElementById("firstName").value, "l_name": document.getElementById("lastName").value}
+        var carePackage = {"f_name": document.getElementById("fname").value, "l_name": document.getElementById("lname").value}
         console.log(carePackage);
         carePackage = JSON.stringify(carePackage);
-        request.open("POST","http://flip3.engr.oregonstate.edu:41988/users", true);
+        request.open("POST","http://flip3.engr.oregonstate.edu:41988/artists", true);
         request.setRequestHeader('Content-Type', 'application/json');
         request.addEventListener('load', function() {
             if(request.status >= 200 && request.status < 400) {
                 var response = JSON.parse(request.responseText);
                 console.log(response[0]);
                 var row = document.createElement("tr");
-                document.getElementById("usersBody").appendChild(row);
-                var userId = document.createElement("td");
-                userId.textContent = response[0]["user_id"];
-                row.appendChild(userId);
+                document.getElementById("artistsBody").appendChild(row);
+                var artistId = document.createElement("td");
+                artistId.textContent = response[0]["artist_id"];
+                row.appendChild(artistId);
                 var fName = document.createElement("td");
                 fName.textContent = response[0]["f_name"];
                 row.appendChild(fName);
@@ -64,6 +63,7 @@ function binder() {
             }
             else
             {
+                alert("Artist could not be added!");
                 console.log("Error: " + request.statusText);
             }
         });
