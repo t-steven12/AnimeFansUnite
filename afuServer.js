@@ -51,20 +51,53 @@ app.get('/artists',function(req,res,next){
 app.get('/titles',function(req,res,next){
     console.log("Server: getting Titles table...");
     var backToRequest;
-    var space = ' ';
     pool.query("SELECT Titles.title_name AS Titles, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artists FROM Titles JOIN Artists ON Titles.artist = Artists.artist_id ORDER BY Titles ASC", function(err,rows){
         if(err){
             next(err);
             return;
         }
-        console.log(rows);
+        //console.log(rows);
         backToRequest = JSON.stringify(rows);
         res.send(backToRequest);
     });
 });
 
+app.get('/animes',function(req,res,next){
+    console.log("Server: getting Animes table...");
+    var backToRequest;
+    pool.query("SELECT Animes.anime_id AS AnimeID, Titles.title_name AS Title, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artist FROM Animes JOIN Titles ON Animes.title = Titles.title_name JOIN Artists ON Titles.artist = Artists.artist_id ORDER BY AnimeID ASC", function(err,rows){
+        if(err){
+            next(err);
+            return;
+        }
+        backToRequest = JSON.stringify(rows);
+        res.send(backToRequest);
+    });
+});
+
+app.post('/animes',function(req,res,next){
+    console.log("Server: inserting new anime...");
+    var backToRequest;
+    pool.query("INSERT INTO Animes (title) VALUES (?)", [req.body.title], function(err,result){
+        if(err){
+            next(err);
+            return;
+        }
+        var insertedId = result.insertId;
+        pool.query("SELECT Animes.anime_id AS AnimeID, Titles.title_name AS Title, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artist FROM Animes JOIN Titles ON Animes.title = Titles.title_name JOIN Artists ON Titles.artist = Artists.artist_id WHERE Animes.anime_id=?", [insertedId], function(err,row){
+            if(err){
+                next(err);
+                return;
+            }
+            backToRequest = JSON.stringify(row);
+            console.log(backToRequest);
+            res.send(backToRequest);
+        });
+    });
+});
+
 app.post('/titles',function(req,res,next){
-    console.log("Server: inserting new anime title...");
+    console.log("Server: inserting new title...");
     var backToRequest;
     console.log(req.body.title_name);
     pool.query("INSERT INTO Titles (title_name, artist) VALUES (?, (SELECT artist_id FROM Artists WHERE CONCAT(Artists.f_name, ' ', Artists.l_name)=?))", [req.body.title_name, req.body.artist], function(err,result) {

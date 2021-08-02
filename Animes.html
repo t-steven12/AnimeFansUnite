@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Animes</title>
     <link rel="stylesheet" href="style.css">
+    <script src="animesAJAX.js"></script>
 </head>
 <body>
     <h1>Anime Fans Unite</h1>
@@ -38,24 +39,14 @@
             <input type="submit" id="addAnime">
         </form>
     </fieldset>
-        <table>
+        <table id="animeTable">
             <caption><b>Animes</b></caption>
             <thead>
                 <th>Anime ID</th>
                 <th>Title</th>
                 <th>Artist</th>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Shaman King</td>
-                    <td>Hiroyuki Takei</td>
-                    <td>
-                <tr>
-                    <td>2</td>
-                    <td>Inuyasha</td>
-                    <td>Rumiko Takahashi</td>
-                </tr>
+            <tbody id="animeList">
             </tbody>
         </table>
     </fieldset>
