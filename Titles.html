@@ -31,13 +31,19 @@
       <input type="text" id="title">
       <label for="artistName">Artist Name:</label>
       <input list="artistOptions" id="artistName">
-        <datalist id="artistOptions">
-          <option value="Rumiko Takahashi"></option>
-          <option value="Hiroyuki Takei"></option>
-        </datalist>
-      <input type="submit">
+        <datalist id="artistOptions"></datalist>
+      <input type="submit" id="addTitles">
     </form>
   </fieldset><br>
+  <fieldset>
+    <legend>Update Artist</legend>
+    <label for="titleToEdit">Anime Title:</label>
+    <input type="text" id="titleToEdit">
+    <label for="newArtist">New Artist:</label>
+    <input list="newArtistOptions" id="newArtist">
+      <datalist id="newArtistOptions"></datalist>
+    <input type="submit" id="editArtist">
+  </fieldset>
     <table id="titlesTable">
       <caption><b>Anime Titles</b></caption>
       <thead>
@@ -45,20 +51,6 @@
         <th>Artists</th>
       </thead>
       <tbody id="titlesBody">
-        <tr>
-          <td>Shaman King</td>
-          <td>Hiroyuki Takei</td>
-          <td>
-            <input type="button" name="Update" value="Update">
-          </td>
-        </tr>
-        <tr>
-          <td>Inuyasha</td>
-          <td>Rumiko Takahashi</td>
-          <td>
-            <input type="button" name="Update" value="Update">
-          </td>
-        </tr>
       </tbody>
     </table>
   </fieldset>
