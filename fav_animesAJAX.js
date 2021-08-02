@@ -41,10 +41,10 @@ function binder(){
     });
 
     //AJAX request to insert a user
-/*    document.getElementById('addTitles').addEventListener('click', function(e) {
-        console.log("Adding title...");
+    document.getElementById('favoriteAnAnime').addEventListener('click', function(e) {
+        console.log("AJAX to favorite an anime...");
         var request = new XMLHttpRequest();
-        var carePackage = {"title_name": document.getElementById("title").value, "artist": document.getElementById("artistName").value}
+        var carePackage = {"uId": document.getElementById("userIdFav").value, "aId": document.getElementById("animeIdToFav").value}
         console.log(carePackage);
         carePackage = JSON.stringify(carePackage);
         request.open("POST","http://flip3.engr.oregonstate.edu:41988/titles", true);
@@ -53,22 +53,18 @@ function binder(){
             if(request.status >= 200 && request.status < 400) {
                 var response = JSON.parse(request.responseText);
                 console.log(response[0]);
-                var row = document.createElement("tr");
-                document.getElementById("titlesBody").appendChild(row);
-                var theTitle = document.createElement("td");
-                theTitle.textContent = response[0]["Titles"];
-                row.appendChild(theTitle);
-                var theArtist = document.createElement("td");
-                theArtist.textContent = response[0]["Artists"];
-                row.appendChild(theArtist);
+                var uId = response[0]["UserID"];
+                var aId = response[0]["AnimeID"];
+                var animeTitle = response[0]["AnimeTitle"];
+                alert("UserID#: " + uId + "\n\n" + "Successfully favorited:\n" + "Anime ID: " + aId + "\n" + "Anime Title: " + animeTitle);
             }
             else
             {
-                alert("Title could not be added!");
+                alert("Anime could not be favorited!");
                 console.log("Error: " + request.statusText);
             }
         });
         request.send(carePackage);
         e.preventDefault();
-    });*/
+    });
 }

@@ -88,6 +88,23 @@ app.post('/fav_animes',function(req,res,next){
     });
 });
 
+app.post('/fav_animes',function(req,res,next){
+    console.log("Server: favoriting an anime for user...");
+    var backToRequest;
+    pool.query("INSERT INTO Fav_animes (user_id, anime_id) VALUES (?,?)", [req.body.uId, req.body.aId], function(err,result){
+        if(err){
+            next(err);
+            return;
+        }
+        console.log("ID: " + result.insertId);
+        pool.query("SELECT Fav_animes.user_id AS UserID, Fav_animes.anime_id AS AnimeID, Animes.title AS AnimeTitle FROM Fav_animes JOIN Animes ON Fav_animes.anime_id = Animes.anime_id WHERE Fav_animes.user_id=? AND Fav_animes.anime_id=?", [req.body.uId, req.body.aId], function(err, row){
+            backToRequest = JSON.stringify(row);
+            console.log(backToRequest);
+            res.send(backToRequest);
+        });
+    });
+});
+
 app.post('/animes',function(req,res,next){
     console.log("Server: inserting new anime...");
     var backToRequest;
