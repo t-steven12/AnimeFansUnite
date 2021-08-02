@@ -52,7 +52,7 @@ app.get('/titles',function(req,res,next){
     console.log("Server: getting Titles table...");
     var backToRequest;
     var space = ' ';
-    pool.query("SELECT Titles.title_name AS Titles, CONCAT(Artists.f_name, space, Artists.l_name) AS Artists FROM Titles JOIN Artists ON Titles.artist = Artists.artist_id ORDER BY Titles ASC", function(err,rows){
+    pool.query("SELECT Titles.title_name AS Titles, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artists FROM Titles JOIN Artists ON Titles.artist = Artists.artist_id ORDER BY Titles ASC", function(err,rows){
         if(err){
             next(err);
             return;
