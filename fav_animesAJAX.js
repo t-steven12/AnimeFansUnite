@@ -36,7 +36,7 @@ function binder(){
     });
 
     //AJAX request to insert a user
-    document.getElementById('addTitles').addEventListener('click', function(e) {
+/*    document.getElementById('addTitles').addEventListener('click', function(e) {
         console.log("Adding title...");
         var request = new XMLHttpRequest();
         var carePackage = {"title_name": document.getElementById("title").value, "artist": document.getElementById("artistName").value}
@@ -65,5 +65,5 @@ function binder(){
         });
         request.send(carePackage);
         e.preventDefault();
-    });
+    });*/
 }
