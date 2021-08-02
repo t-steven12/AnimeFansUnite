@@ -5,8 +5,7 @@ function binder(){
     document.getElementById("viewFavs").addEventListener('click',function(e){
       console.log("AJAX to view user's favorite animes...");
       var request = new XMLHttpRequest();
-      var toSend = {"userId": document.getElementById("userId").value};
-        request.open("GET", "http://flip3.engr.oregonstate.edu:41988/fav_animes", true);
+        request.open("GET", "http://flip3.engr.oregonstate.edu:41988/fav_animes?userId=" + document.getElementById("userId").value, true);
         request.addEventListener('load', function() {
             if(request.status>= 200 && request.status < 400) {
                 var response = JSON.parse(request.responseText);
@@ -32,7 +31,7 @@ function binder(){
                 console.log("Error: " + request.statusText);
             }
         });
-        request.send(toSend);
+        request.send(null);
     });
 
     //AJAX request to insert a user
