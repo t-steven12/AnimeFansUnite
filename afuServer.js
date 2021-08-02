@@ -123,6 +123,7 @@ app.post('/titles',function(req,res,next){
     var backToRequest;
     console.log(req.body.title_name);
     console.log(req.body.artist);
+    console.log(req.body);
     mysql.pool.query("INSERT INTO Titles (title_name, artist) VALUES (?, (SELECT artist_id FROM Artists WHERE CONCAT(Artists.f_name, ' ', Artists.l_name)=?))", [req.body.title_name, req.body.artist], function(err,result) {
         if (err) {
             next(err);
@@ -136,6 +137,7 @@ app.post('/titles',function(req,res,next){
                     return;
                 }
                 row.Artists = "NULL";
+                console.log(row);
                 backToRequest = JSON.stringify(row);
                 console.log(backToRequest);
                 res.send(backToRequest);
