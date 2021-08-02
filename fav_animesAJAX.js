@@ -2,12 +2,16 @@ document.addEventListener('DOMContentLoaded', binder);
 
 function binder(){
 
-    document.getElementById("viewFavs").addEventListener('click',function(e){
-      console.log("AJAX to view user's favorite animes...");
-      var request = new XMLHttpRequest();
-        request.open("GET", "http://flip3.engr.oregonstate.edu:41988/fav_animes?userId=" + document.getElementById("userId").value, true);
+    document.getElementById('viewFavs').addEventListener('click', function(e) {
+        console.log("AJAX to view user's favorite animes...");
+        var request = new XMLHttpRequest();
+        var carePackage = {"userId": document.getElementById("userId").value}
+        console.log(carePackage);
+        carePackage = JSON.stringify(carePackage);
+        request.open("POST","http://flip3.engr.oregonstate.edu:41988/fav_animes", true);
+        request.setRequestHeader('Content-Type', 'application/json');
         request.addEventListener('load', function() {
-            if(request.status>= 200 && request.status < 400) {
+            if(request.status >= 200 && request.status < 400) {
                 var response = JSON.parse(request.responseText);
                 console.log(response);
                 var favAnimesTabBody = document.getElementById("userFavAnimes");
@@ -28,10 +32,12 @@ function binder(){
             }
             else
             {
+                alert("User not found!");
                 console.log("Error: " + request.statusText);
             }
         });
-        request.send(null);
+        request.send(carePackage);
+        e.preventDefault();
     });
 
     //AJAX request to insert a user
