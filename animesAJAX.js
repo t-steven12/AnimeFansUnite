@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', binder);
+document.addEventListener('DOMContentLoaded', imInABind);
 
-function binder() {
+function imInABind() {
 
     getAnimes();
 
@@ -8,7 +8,7 @@ function binder() {
     function getAnimes(){
         console.log("AJAX to retrieve Animes table");
         var request = new XMLHttpRequest();
-        request.open("GET", "http://flip3.engr.oregonstate.edu:41988/animes", true);
+        request.open("GET", "http://flip3.engr.oregonstate.edu:41989/animes", true);
         request.addEventListener('load', function() {
             if(request.status>= 200 && request.status < 400) {
                 var response = JSON.parse(request.responseText);
@@ -17,7 +17,7 @@ function binder() {
                 for(var i = 0; i < response.length; i++)
                 {
                     var row = document.createElement("tr");
-                    animeList.appendChild(row);
+                    document.getElementById("animeList").appendChild(row);
                     var id = document.createElement("td");
                     id.textContent = response[i]["AnimeID"];
                     row.appendChild(id);
@@ -25,8 +25,22 @@ function binder() {
                     title.textContent = response[i]["Title"];
                     row.appendChild(title);
                     var artist = document.createElement("td");
-                    artist.textContent = response[i]["Artist"];
-                    row.append(artist);
+                    if(response[i]["ArtistFName"] === null)
+                    {
+                        artist.textContent = "NULL/No Artist";
+                    }
+                    else if(response[i]["ArtistFName"] != null && response[i]["ArtistLName"] === null)
+                    {
+                        artist.textContent = response[i]["ArtistFName"];
+                    }
+                    else
+                    {
+                        artist.textContent = response[i]["ArtistFName"] + " " + response[i]["ArtistLName"];
+                    }
+                    row.appendChild(artist);
+                    var newTitleOption = document.createElement("option");
+                    newTitleOption.value = response[i]["Title"];
+                    document.getElementById("titleOptions").appendChild(newTitleOption);
                 }
             }
             else
@@ -44,7 +58,7 @@ function binder() {
         var carePackage = {"title": document.getElementById("titlesList").value}
         console.log(carePackage);
         carePackage = JSON.stringify(carePackage);
-        request.open("POST","http://flip3.engr.oregonstate.edu:41988/users", true);
+        request.open("POST","http://flip3.engr.oregonstate.edu:41989/animes", true);
         request.setRequestHeader('Content-Type', 'application/json');
         request.addEventListener('load', function() {
             if(request.status >= 200 && request.status < 400) {
@@ -59,8 +73,22 @@ function binder() {
                 title.textContent = response[0]["Title"];
                 row.appendChild(title);
                 var artist = document.createElement("td");
-                artist.textContent = response[0]["Artist"];
+                if(response[0]["artistFName"] === null)
+                {
+                    artist.textContent = "NULL/No Artist";
+                }
+                else if(response[0]["artistFName"] != null && response[0]["artistLName"] === null)
+                {
+                    artist.textContent = response[0]["artistFName"];
+                }
+                else
+                {
+                    artist.textContent = response[0]["artistFName"] + " " + response[0]["artistLName"];
+                }
                 row.appendChild(artist);
+                var newTitleOption = document.createElement("option");
+                newTitleOption.value = response[0]["Title"];
+                document.getElementById("titleOptions").appendChild(newTitleOption);
             }
             else
             {

@@ -1,13 +1,13 @@
-document.addEventListener('DOMContentLoaded', binder);
+document.addEventListener('DOMContentLoaded', imInABind);
 
-function binder(){
+function imInABind(){
 
     getArtists();
 
     function getArtists(){
         console.log("AJAX to retrieve Artists table...");
         var request = new XMLHttpRequest();
-        request.open("GET", "http://flip3.engr.oregonstate.edu:41988/artists", true);
+        request.open("GET", "http://flip3.engr.oregonstate.edu:41989/artists", true);
         request.addEventListener('load', function() {
             if(request.status>= 200 && request.status < 400) {
                 var response = JSON.parse(request.responseText);
@@ -43,7 +43,7 @@ function binder(){
         var carePackage = {"f_name": document.getElementById("fname").value, "l_name": document.getElementById("lname").value}
         console.log(carePackage);
         carePackage = JSON.stringify(carePackage);
-        request.open("POST","http://flip3.engr.oregonstate.edu:41988/artists", true);
+        request.open("POST","http://flip3.engr.oregonstate.edu:41989/artists", true);
         request.setRequestHeader('Content-Type', 'application/json');
         request.addEventListener('load', function() {
             if(request.status >= 200 && request.status < 400) {

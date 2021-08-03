@@ -1,6 +1,6 @@
+
+//The following boilerplate code is based on the helloMysql.js and helloSessions.js boilerplate code from Justin Wolford's "CS290-Server-Side-Examples" @ https://github.com/wolfordj/CS290-Server-Side-Examples/tree/master/express-mysql AND https://github.com/wolfordj/CS290-Server-Side-Examples/tree/master/express-sessions
 var mysql = require('./dbcon.js');
-
-
 var express = require('express');
 var cors = require('cors');
 var app = express();
@@ -12,6 +12,8 @@ app.use(cors());
 
 app.set('port', 41989);
 
+//The following handlers are adapted from the handlers in the helloMysql.js from Justin Wolford's "CS290-Server-Side-Examples" @ https://github.com/wolfordj/CS290-Server-Side-Examples/blob/master/express-mysql/helloMysql.js
+//Additionally, any handlers with nested pool queries are adapted from Derth Adams's answer on Ed for CS290 @ https://edstem.org/us/courses/5175/discussion/477454
 app.get('/users',function(req,res,next){
     console.log("Server: retrieving Users table...");
     var backToRequest;
@@ -226,6 +228,7 @@ app.post('/artists',function(req,res,next){
     }
 });
 
+//The following app.listen is based on the app.listen in the helloMysql.js from Justin Wolford's "CS290-Server-Side-Examples" @ https://github.com/wolfordj/CS290-Server-Side-Examples/blob/master/express-mysql/helloMysql.js
 app.listen(app.get('port'), function(){
     console.log('Server online @ http://flip3.engr.oregonstate.edu:' + app.get('port') + '; press Ctrl-C to terminate.');
 });

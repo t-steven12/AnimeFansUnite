@@ -29,12 +29,10 @@
 
     <fieldset>
         <legend>Add Animes</legend>
-        <form>
+        <form action="artistsAJAX.js" method="post">
             <label for="titlesList">Anime Title:</label>
             <input list="titleOptions" id="titlesList">
                 <datalist id="titleOptions">
-                    <option value="Shaman King"></option>
-                    <option value="Inuyasha"></option>
                 </datalist><br>
             <input type="submit" id="addAnime">
         </form>
