@@ -129,15 +129,13 @@ app.post('/titles',function(req,res,next){
             next(err);
             return;
         }
-        if(req.body.artist === "")
+        if(req.body.artist === '')
         {
             mysql.pool.query("SELECT Titles.title_name AS Titles FROM Titles WHERE Titles.title_name=?", [req.body.title_name], function (err, row) {
                 if (err) {
                     next(err);
                     return;
                 }
-                row.Artists = "NULL";
-                console.log(row);
                 backToRequest = JSON.stringify(row);
                 console.log(backToRequest);
                 res.send(backToRequest);
