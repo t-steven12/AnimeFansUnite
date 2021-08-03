@@ -179,24 +179,44 @@ app.post('/users',function(req,res,next){
 
 app.post('/artists',function(req,res,next){
     console.log("Server: inserting new artist...");
-    req.body = JSON.parse(req.body);
     var backToRequest;
-    mysql.pool.query('INSERT INTO Artists (f_name, l_name) VALUES (?,?)', [req.body.f_name, req.body.l_name], function(err,result){
-        if(err){
-            next(err);
-            return;
-        }
-        var idFromInsert = result.insertId;
-        mysql.pool.query('SELECT * FROM Artists WHERE artist_id=?', [idFromInsert], function(err, row){
+    if(req.body.l_name === '')
+    {
+        mysql.pool.query('INSERT INTO Artists (f_name, l_name) VALUES (?,NULL)', [req.body.f_name], function(err,result){
             if(err){
                 next(err);
                 return;
             }
-            backToRequest = JSON.stringify(row);
-            console.log(backToRequest);
-            res.send(backToRequest);
+            var idFromInsert = result.insertId;
+            mysql.pool.query('SELECT * FROM Artists WHERE artist_id=?', [idFromInsert], function(err, row){
+                if(err){
+                    next(err);
+                    return;
+                }
+                backToRequest = JSON.stringify(row);
+                console.log(backToRequest);
+                res.send(backToRequest);
+            });
         });
-    });
+    }
+    else {
+        mysql.pool.query('INSERT INTO Artists (f_name, l_name) VALUES (?,?)', [req.body.f_name, req.body.l_name], function (err, result) {
+            if (err) {
+                next(err);
+                return;
+            }
+            var idFromInsert = result.insertId;
+            mysql.pool.query('SELECT * FROM Artists WHERE artist_id=?', [idFromInsert], function (err, row) {
+                if (err) {
+                    next(err);
+                    return;
+                }
+                backToRequest = JSON.stringify(row);
+                console.log(backToRequest);
+                res.send(backToRequest);
+            });
+        });
+    }
 });
 
 app.listen(app.get('port'), function(){
