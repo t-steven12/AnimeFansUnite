@@ -106,7 +106,7 @@ app.post('/animes',function(req,res,next){
             return;
         }
         var insertedId = result.insertId;
-        mysql.pool.query("SELECT Animes.anime_id AS AnimeID, Titles.title_name AS Title, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artist FROM Animes LEFT JOIN Titles ON Animes.title = Titles.title_name LEFT JOIN Artists ON Titles.artist = Artists.artist_id WHERE Animes.anime_id=?", [insertedId], function(err,row){
+        mysql.pool.query("SELECT Animes.anime_id AS AnimeID, Titles.title_name AS Title, Artists.f_name AS artistFName, Artists.l_name AS artistLName FROM Animes JOIN Titles ON Animes.title = Titles.title_name LEFT JOIN Artists ON Titles.artist = Artists.artist_id WHERE Animes.anime_id=?", [insertedId], function(err,row){
             if(err){
                 next(err);
                 return;
