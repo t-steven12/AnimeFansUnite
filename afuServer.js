@@ -124,14 +124,13 @@ app.post('/titles',function(req,res,next){
     console.log(req.body.title_name);
     console.log(req.body.artist);
     console.log(req.body);
-    mysql.pool.query("INSERT INTO Titles (title_name, artist) VALUES (?, (SELECT artist_id FROM Artists WHERE CONCAT(Artists.f_name, ' ', Artists.l_name)=?))", [req.body.title_name, req.body.artist], function(err,result) {
-        if (err) {
-            next(err);
-            return;
-        }
-        if(req.body.artist === '')
-        {
-            mysql.pool.query("SELECT Titles.title_name AS Titles FROM Titles WHERE Titles.title_name=?", [req.body.title_name], function (err, row) {
+    if(req.body.artist === '') {
+        mysql.pool.query("INSERT INTO Titles (title_name, artist) VALUES (?, NULL)", [req.body.title_name], function (err, result) {
+            if (err) {
+                next(err);
+                return;
+            }
+            mysql.pool.query("SELECT Titles.title_name AS Titles, Titles.artist AS Artists FROM Titles WHERE Titles.title_name=?", [req.body.title_name], function (err, row) {
                 if (err) {
                     next(err);
                     return;
@@ -140,10 +139,16 @@ app.post('/titles',function(req,res,next){
                 console.log(backToRequest);
                 res.send(backToRequest);
             });
-        }
-        else
-        {
-            mysql.pool.query("SELECT Titles.title_name AS Titles, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artists FROM Titles JOIN Artists ON Titles.artist = Artists.artist_id WHERE Titles.title_name=?", [req.body.title_name], function (err, row) {
+        });
+    }
+    else
+    {
+        mysql.pool.query("INSERT INTO Titles (title_name, artist) VALUES (?,?)", [req.body.title_name, req.body.artist], function (err, result) {
+            if (err) {
+                next(err);
+                return;
+            }
+            mysql.pool.query("SELECT Titles.title_name AS Titles, Titles.artist AS Artists FROM Titles WHERE Titles.title_name=?", [req.body.title_name], function (err, row) {
                 if (err) {
                     next(err);
                     return;
@@ -152,8 +157,8 @@ app.post('/titles',function(req,res,next){
                 console.log(backToRequest);
                 res.send(backToRequest);
             });
-        }
-    });
+        });
+    }
 });
 
 app.post('/users',function(req,res,next){
