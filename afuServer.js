@@ -149,7 +149,7 @@ app.post('/titles',function(req,res,next){
                 next(err);
                 return;
             }
-            mysql.pool.query("SELECT Titles.title_name AS Titles, Titles.artist AS Artists FROM Titles WHERE Titles.title_name=?", [req.body.title_name], function (err, row) {
+            mysql.pool.query("SELECT Titles.title_name AS Titles, Artists.f_name AS ArtistFName, Artists.l_name AS ArtistLName FROM Titles JOIN Artists ON Titles.artist = Artists.artist_id  WHERE Titles.title_name=?", [req.body.title_name], function (err, row) {
                 if (err) {
                     next(err);
                     return;
