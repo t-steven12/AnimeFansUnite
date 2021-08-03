@@ -57,7 +57,7 @@ app.get('/titles',function(req,res,next){
 app.get('/animes',function(req,res,next){
     console.log("Server: getting Animes table...");
     var backToRequest;
-    mysql.pool.query("SELECT Animes.anime_id AS AnimeID, Titles.title_name AS Title, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artist FROM Animes JOIN Titles ON Animes.title = Titles.title_name JOIN Artists ON Titles.artist = Artists.artist_id ORDER BY AnimeID ASC", function(err,rows){
+    mysql.pool.query("SELECT Animes.anime_id AS AnimeID, Titles.title_name AS Title, Artists.f_name AS ArtistFName, Artists.l_name AS ArtistLName FROM Animes JOIN Titles ON Animes.title = Titles.title_name LEFT JOIN Artists ON Titles.artist = Artists.artist_id ORDER BY AnimeID ASC", function(err,rows){
         if(err){
             next(err);
             return;
