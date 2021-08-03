@@ -179,6 +179,7 @@ app.post('/users',function(req,res,next){
 
 app.post('/artists',function(req,res,next){
     console.log("Server: inserting new artist...");
+    req.body = JSON.parse(req.body);
     var backToRequest;
     mysql.pool.query('INSERT INTO Artists (f_name, l_name) VALUES (?,?)', [req.body.f_name, req.body.l_name], function(err,result){
         if(err){
