@@ -144,7 +144,7 @@ app.post('/titles',function(req,res,next){
     else
     {
         console.log("You are in the else-statement.");
-        mysql.pool.query("INSERT INTO Titles (title_name, artist) VALUES (?, (SELECT artist_id FROM Artists WHERE CONCAT(Artists.f_name, ' ', Artists.l_name))=?)", [req.body.title_name, req.body.artist], function (err, result) {
+        mysql.pool.query("INSERT INTO Titles (title_name, artist) VALUES (?, (SELECT artist_id FROM Artists WHERE CONCAT(Artists.f_name, ' ', Artists.l_name))=? OR Artists.f_name=?)", [req.body.title_name, req.body.artist, req.body.artist], function (err, result) {
             if (err) {
                 next(err);
                 return;
