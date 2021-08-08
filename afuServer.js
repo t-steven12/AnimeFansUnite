@@ -45,7 +45,7 @@ app.get('/artists',function(req,res,next){
 app.get('/titles',function(req,res,next){
     console.log("Server: getting Titles table...");
     var backToRequest;
-    mysql.pool.query("SELECT Titles.title_name AS Titles, CONCAT(Artists.f_name, ' ', Artists.l_name) AS Artists FROM Titles LEFT JOIN Artists ON Titles.artist = Artists.artist_id ORDER BY Titles ASC", function(err,rows){
+    mysql.pool.query("SELECT Titles.title_name AS Titles, Artists.f_name AS ArtistFName, Artists.l_name AS ArtistLName FROM Titles LEFT JOIN Artists ON Titles.artist = Artists.artist_id ORDER BY Titles ASC", function(err,rows){
         if(err){
             next(err);
             return;
@@ -59,7 +59,7 @@ app.get('/titles',function(req,res,next){
 app.get('/animes',function(req,res,next){
     console.log("Server: getting Animes table...");
     var backToRequest;
-    mysql.pool.query("SELECT Animes.anime_id AS AnimeID, Titles.title_name AS Title, Artists.f_name AS ArtistFName, Artists.l_name AS ArtistLName FROM Animes JOIN Titles ON Animes.title = Titles.title_name LEFT JOIN Artists ON Titles.artist = Artists.artist_id ORDER BY AnimeID ASC", function(err,rows){
+    mysql.pool.query("SELECT Animes.anime_id AS AnimeID, Titles.title_name AS Title, Artists.f_name AS ArtistFName, Artists.l_name AS ArtistLName, Animes.air_date AS AirDate FROM Animes JOIN Titles ON Animes.title = Titles.title_name LEFT JOIN Artists ON Titles.artist = Artists.artist_id ORDER BY AnimeID ASC", function(err,rows){
         if(err){
             next(err);
             return;
@@ -102,14 +102,14 @@ app.post('/favoritingAnime',function(req,res,next){
 app.post('/animes',function(req,res,next){
     console.log("Server: inserting new anime...");
     var backToRequest;
-    mysql.pool.query("INSERT INTO Animes (title) VALUES (?)", [req.body.title], function(err,result){
+    mysql.pool.query("INSERT INTO Animes (title, air_date) VALUES (?,?)", [req.body.title, req.body.air_date], function(err,result){
         if(err){
             next(err);
             return;
         }
         var insertedId = result.insertId;
         console.log(result.insertId);
-        mysql.pool.query("SELECT Animes.anime_id AS AnimeID, Titles.title_name AS Title, Artists.f_name AS artistFName, Artists.l_name AS artistLName FROM Animes JOIN Titles ON Animes.title = Titles.title_name LEFT JOIN Artists ON Titles.artist = Artists.artist_id WHERE Animes.anime_id=?", [insertedId], function(err,row){
+        mysql.pool.query("SELECT Animes.anime_id AS AnimeID, Animes.air_date AS AirDate, Titles.title_name AS Title, Artists.f_name AS artistFName, Artists.l_name AS artistLName FROM Animes JOIN Titles ON Animes.title = Titles.title_name LEFT JOIN Artists ON Titles.artist = Artists.artist_id WHERE Animes.anime_id=?", [insertedId], function(err,row){
             if(err){
                 next(err);
                 return;
@@ -226,6 +226,40 @@ app.post('/artists',function(req,res,next){
             });
         });
     }
+});
+
+app.put('/updateTitlesartist',function(req,res,next){
+    console.log("Server: Updating title artist...");
+    var backToRequest;
+    mysql.pool.query("UPDATE Titles SET artist = (SELECT artist_id FROM Artists WHERE CONCAT(Artists.f_name, ' ', Artists.l_name) = ? OR Artists.f_name = ?) WHERE title_name = ?", [req.body.artist_name, req.body.artist_name, req.body.title_name], function(err,result){
+        if(err){
+            next(err);
+            return;
+        }
+        mysql.pool.query('SELECT Titles.title_name AS Title, Artists.f_name AS artistFName, Artists.l_name AS artistLName FROM Titles JOIN Artists ON Titles.artist = Artists.artist_id  WHERE Titles.title_name=?', [req.body.title_name], function(err,row){
+            if(err){
+                next(err);
+                return;
+            }
+            backToRequest = JSON.stringify(row);
+            console.log(backToRequest);
+            res.send(backToRequest);
+        });
+    });
+});
+
+app.delete('/delUsers',function(req,res,next){
+    console.log("Server: Deleting user...");
+    var backToRequest;
+    mysql.pool.query("DELETE FROM Users WHERE user_id=?", [req.body.user_id], function(err, result){
+        if(err) {
+            next(err);
+            return;
+        }
+        backToRequest = {"user_id": req.body.user_id};
+        console.log(backToRequest);
+        res.send(backToRequest);
+    });
 });
 
 //The following app.listen is based on the app.listen in the helloMysql.js from Justin Wolford's "CS290-Server-Side-Examples" @ https://github.com/wolfordj/CS290-Server-Side-Examples/blob/master/express-mysql/helloMysql.js
