@@ -257,6 +257,7 @@ app.delete('/delUsers',function(req,res,next){
             return;
         }
         backToRequest = {"user_id": req.body.user_id};
+        backToRequest = JSON.stringify(backToRequest);
         console.log(backToRequest);
         res.send(backToRequest);
     });
