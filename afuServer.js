@@ -72,7 +72,7 @@ app.get('/animes',function(req,res,next){
 app.post('/fav_animes',function(req,res,next){
     console.log("Server: getting user's favorite animes...");
     var backToRequest;
-    mysql.pool.query("SELECT Fav_animes.user_id AS UserID, Fav_animes.anime_id AS AnimeID, Titles.title_name AS AnimeTitle FROM Fav_animes JOIN Animes ON Fav_animes.anime_id = Animes.anime_id JOIN Titles ON Animes.title = Titles.title_name WHERE Fav_animes.user_id = ? ORDER BY AnimeTitle ASC", [req.body.userId], function(err,rows){
+    mysql.pool.query("SELECT Fav_animes.user_id AS UserID, Fav_animes.anime_id AS AnimeID, Titles.title_name AS AnimeTitle, Animes.air_date FROM Fav_animes JOIN Animes ON Fav_animes.anime_id = Animes.anime_id JOIN Titles ON Animes.title = Titles.title_name WHERE Fav_animes.user_id = ? ORDER BY AnimeTitle ASC", [req.body.userId], function(err,rows){
         if(err){
             next(err);
             return;
