@@ -231,20 +231,35 @@ app.post('/artists',function(req,res,next){
 app.put('/updateTitlesartist',function(req,res,next){
     console.log("Server: Updating title artist...");
     var backToRequest;
+    console.log(req.body.artist_name);
     mysql.pool.query("UPDATE Titles SET artist = (SELECT artist_id FROM Artists WHERE CONCAT(Artists.f_name, ' ', Artists.l_name) = ? OR Artists.f_name = ?) WHERE title_name = ?", [req.body.artist_name, req.body.artist_name, req.body.title_name], function(err,result){
         if(err){
             next(err);
             return;
         }
-        mysql.pool.query('SELECT Titles.title_name AS Title, Artists.f_name AS artistFName, Artists.l_name AS artistLName FROM Titles JOIN Artists ON Titles.artist = Artists.artist_id  WHERE Titles.title_name=?', [req.body.title_name], function(err,row){
-            if(err){
-                next(err);
-                return;
-            }
-            backToRequest = JSON.stringify(row);
-            console.log(backToRequest);
-            res.send(backToRequest);
-        });
+        if(req.body.artist_name === "")
+        {
+            mysql.pool.query('SELECT Titles.title_name AS Title, Titles.artist AS Artist FROM Titles WHERE Titles.title_name=?', [req.body.title_name], function(err,row){
+                if(err){
+                    next(err);
+                    return;
+                }
+                backToRequest = JSON.stringify(row);
+                console.log(backToRequest);
+                res.send(backToRequest);
+            })
+        }
+        else {
+            mysql.pool.query('SELECT Titles.title_name AS Title, Artists.f_name AS artistFName, Artists.l_name AS artistLName FROM Titles JOIN Artists ON Titles.artist = Artists.artist_id  WHERE Titles.title_name=?', [req.body.title_name], function (err, row) {
+                if (err) {
+                    next(err);
+                    return;
+                }
+                backToRequest = JSON.stringify(row);
+                console.log(backToRequest);
+                res.send(backToRequest);
+            });
+        }
     });
 });
 
