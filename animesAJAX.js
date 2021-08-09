@@ -118,9 +118,6 @@ function imInABind() {
                     artist.textContent = response[0]["artistFName"] + " " + response[0]["artistLName"];
                 }
                 row.appendChild(artist);
-                var newTitleOption = document.createElement("option");
-                newTitleOption.value = response[0]["Title"];
-                document.getElementById("titleOptions").appendChild(newTitleOption);
                 var airDate = document.createElement("td");
                 airDate.textContent = response[0]["AirDate"];
                 airDate.textContent = airDate.textContent.slice(0, 10);
