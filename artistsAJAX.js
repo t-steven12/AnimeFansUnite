@@ -4,6 +4,11 @@ function imInABind(){
 
     getArtists();
 
+    //The following AJAX requests are adapted from code present on the "HTTP and Javascript"(https://canvas.oregonstate.edu/courses/1810876/pages/http-and-javascript?module_item_id=20678211) and
+    //  "Asynchronous HTTP Requests"(https://canvas.oregonstate.edu/courses/1810876/pages/asynchronous-http-requests?module_item_id=20678215) pages from the online Spring 2021 CS290 course modules
+    //  at Oregon State University.
+
+    //AJAX request to retrieve Artists table
     function getArtists(){
         console.log("AJAX to retrieve Artists table...");
         var request = new XMLHttpRequest();
@@ -24,8 +29,15 @@ function imInABind(){
                     fName.textContent = response[i]["f_name"];
                     row.appendChild(fName);
                     var lName = document.createElement("td");
-                    lName.textContent = response[i]["l_name"];
-                    row.append(lName);
+                    if(response[i]["l_name"] === null)
+                    {
+                        lName.textContent = "N/A";
+                        row.appendChild(lName);
+                    }
+                    else {
+                        lName.textContent = response[i]["l_name"];
+                        row.appendChild(lName);
+                    }
                 }
             }
             else
@@ -36,8 +48,14 @@ function imInABind(){
         request.send(null);
     }
 
-    //AJAX request to insert a user
+    //AJAX request to add a new Artist
     document.getElementById('addArtists').addEventListener('click', function(e) {
+        if(document.getElementById("fname").value === "")
+        {
+            alert("Please fill out first name field!");
+            e.preventDefault();
+            return;
+        }
         console.log("Adding artist...");
         var request = new XMLHttpRequest();
         var carePackage = {"f_name": document.getElementById("fname").value, "l_name": document.getElementById("lname").value}
@@ -58,8 +76,16 @@ function imInABind(){
                 fName.textContent = response[0]["f_name"];
                 row.appendChild(fName);
                 var lName = document.createElement("td");
-                lName.textContent = response[0]["l_name"];
-                row.appendChild(lName);
+                if(response[0]["l_name"] === null)
+                {
+                    lName.textContent = "N/A";
+                    row.appendChild(lName);
+                }
+                else
+                {
+                    lName.textContent = response[0]["l_name"];
+                    row.appendChild(lName);
+                }
             }
             else
             {

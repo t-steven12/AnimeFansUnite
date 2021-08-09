@@ -12,8 +12,10 @@ app.use(cors());
 
 app.set('port', 41989);
 
-//The following handlers are adapted from the handlers in the helloMysql.js from Justin Wolford's "CS290-Server-Side-Examples" @ https://github.com/wolfordj/CS290-Server-Side-Examples/blob/master/express-mysql/helloMysql.js
+//The following app.get, app.post, app.put, and app.delete handlers are adapted from the handlers in the helloMysql.js from Justin Wolford's "CS290-Server-Side-Examples" @ https://github.com/wolfordj/CS290-Server-Side-Examples/blob/master/express-mysql/helloMysql.js
 //Additionally, any handlers with nested pool queries are adapted from Derth Adams's answer on Ed for CS290 @ https://edstem.org/us/courses/5175/discussion/477454
+
+//Returns all Users rows
 app.get('/users',function(req,res,next){
     console.log("Server: retrieving Users table...");
     var backToRequest;
@@ -28,6 +30,7 @@ app.get('/users',function(req,res,next){
     });
 });
 
+//Returns all Artists rows
 app.get('/artists',function(req,res,next){
     console.log("Server: Artists table...");
     var backToRequest;
@@ -42,6 +45,7 @@ app.get('/artists',function(req,res,next){
     });
 });
 
+//Returns all Titles rows with the name of their associated Artists
 app.get('/titles',function(req,res,next){
     console.log("Server: getting Titles table...");
     var backToRequest;
@@ -56,6 +60,7 @@ app.get('/titles',function(req,res,next){
     });
 });
 
+//Returns all Anime rows with their associated Titles, Artists, and the anime's air_date
 app.get('/animes',function(req,res,next){
     console.log("Server: getting Animes table...");
     var backToRequest;
@@ -69,6 +74,7 @@ app.get('/animes',function(req,res,next){
     });
 });
 
+//Returns a specified User's favorite Animes along with the title_name of the Anime.
 app.post('/fav_animes',function(req,res,next){
     console.log("Server: getting user's favorite animes...");
     var backToRequest;
@@ -82,6 +88,7 @@ app.post('/fav_animes',function(req,res,next){
     });
 });
 
+//Favorite an Anime for a User(insertion into the Fav_animes table)
 app.post('/favoritingAnime',function(req,res,next){
     console.log("Server: favoriting an anime for user...");
     var backToRequest;
@@ -99,6 +106,7 @@ app.post('/favoritingAnime',function(req,res,next){
     });
 });
 
+//Adds a new Anime
 app.post('/animes',function(req,res,next){
     console.log("Server: inserting new anime...");
     var backToRequest;
@@ -121,6 +129,7 @@ app.post('/animes',function(req,res,next){
     });
 });
 
+//Adds a new Title
 app.post('/titles',function(req,res,next){
     console.log("Server: inserting new title...");
     var backToRequest;
@@ -165,6 +174,7 @@ app.post('/titles',function(req,res,next){
     }
 });
 
+//Adds a new User
 app.post('/users',function(req,res,next){
    console.log("Server: inserting new user...");
    var backToRequest;
@@ -186,6 +196,7 @@ app.post('/users',function(req,res,next){
    });
 });
 
+//Adds a new Artist
 app.post('/artists',function(req,res,next){
     console.log("Server: inserting new artist...");
     var backToRequest;
@@ -228,6 +239,7 @@ app.post('/artists',function(req,res,next){
     }
 });
 
+//Updates the Artist of a Title
 app.put('/updateTitlesartist',function(req,res,next){
     console.log("Server: Updating title artist...");
     var backToRequest;
@@ -263,6 +275,7 @@ app.put('/updateTitlesartist',function(req,res,next){
     });
 });
 
+//Deletes a User
 app.delete('/delUsers',function(req,res,next){
     console.log("Server: Deleting user...");
     var backToRequest;

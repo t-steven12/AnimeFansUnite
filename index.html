@@ -15,18 +15,19 @@
         <li><a href="Titles.html">Titles</a></li>
         <li><a href="Artists.html">Artists</a></li>
     </ul>
-    <h2>Users</h2>
+    <h2>ADD NEW/DELETE/DISPLAY Users</h2>
     <h3>The Users page regulates the Users table.</h3>
     <p>
         This page shows a list of all current users of Anime Fans Unite as a table.<br>
         New users can be added by submitting a new user's first name and last name. <br>
-        Users can be deleted. Deleting a User will removed all associated rows in<br>
-        the Fav_animes composite table representing the M:M relationship between<br>
-        Users and Animes.
+        Users can be deleted. Deleting a User will remove all of the User's associated <br>
+        rows in the Fav_animes composite table representing the M:M relationship between<br>
+        Users and Animes. The Animes associated with the removed rows in Fav_animes will
+        not be affected by User deletion.
     </p>
     <fieldset>
         <legend>Add Users</legend>
-        <form action="usersAJAX.js" method="post">
+        <form>
             <label for="firstName">First name:</label>
             <input type="text" id="firstName">
             <label for="lastName">Last name:</label>
@@ -34,14 +35,12 @@
             <input type="submit" id="addUser">
         </form>
     </fieldset>
-    <fieldset>
-        <legend>Delete Users</legend>
-        <form action="usersAJAX.js" method="post">
+        <form action="usersAJAX.js" method="post" id="deleteUsers">
+            <legend style="font-weight: bold">Delete Users</legend>
             <label for="u_id">User ID:</label>
             <input type="text" id="u_id">
             <input type="submit" id="delUser">
         </form>
-    </fieldset>
         <table id="usersTable">
             <caption><b>All Users</b></caption>
             <thead>
